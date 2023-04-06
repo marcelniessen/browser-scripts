@@ -2,21 +2,31 @@
 
 	try {
 
+		if (!window.location.href.match(/seller-fee-invoices/ig)) {
+			throw({code: "f31508c5-976d-4fbc-8bf3-a8754f5ab27b", message: "wrong website"});
+		  }
+
 		const now = new Date();
 
 		let year = now.getFullYear();
 		year = window.prompt("Which year?", year);
+		if (!year) throw({code: "f7b0e4cf-3c04-4e44-9055-61dc8bc363ba", message: "user aborted"})
+
 		year = parseInt(year);
 		console.log("selected year", year);
 
 
+
+
 		let month = now.getMonth() + 1 - 1; // to preselct previous month
 		month = window.prompt("Which month? (Normally last month)", month);
+		if (!month) throw({code: "039f1a33-804d-4083-a5f2-c2e709cd2437", message: "user aborted"})
 		month = parseInt(month);
 		console.log("selected month", month);
 
 		// to match javascript specification January is 0
 		month = month - 1;
+
 
 
 
@@ -144,7 +154,7 @@
 
 		console.log(error);
 
-		window.alert(error);
+		window.alert(JSON.stringify(error, null, 2));
 
 		throw (error);
 
